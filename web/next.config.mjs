@@ -6,8 +6,8 @@ export default (phase, { defaultConfig }) => {
   if (env === "production") {
     return {
       output: "export",
-      assetPrefix: "/ui/",
-      basePath: "/ui",
+      assetPrefix: "/",
+      // basePath: "/",
       distDir: "../ui"
     };
   } else {
