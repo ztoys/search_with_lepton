@@ -3,16 +3,17 @@ async function pump(
   controller: ReadableStreamDefaultController,
   onChunk?: (chunk: Uint8Array) => void,
   onDone?: () => void,
-): Promise<ReadableStreamReadResult<Uint8Array> | undefined> {
-  const { done, value } = await reader.read();
-  if (done) {
-    onDone && onDone();
-    controller.close();
-    return;
-  }
-  onChunk && onChunk(value);
-  controller.enqueue(value);
-  return pump(reader, controller, onChunk, onDone);
+): Promise<void> {
+  reader.read().then(({ done, value }) => {
+    if (done) {
+      onDone && onDone();
+      controller.close();
+      return;
+    }
+    onChunk && onChunk(value);
+    controller.enqueue(value);
+    pump(reader, controller, onChunk, onDone);
+  });
 }
 export const fetchStream = (
   response: Response,

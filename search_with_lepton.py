@@ -302,7 +302,7 @@ class RAG(Photon):
         "openai",  # for openai client usage.
     ]
 
-    extra_files = glob.glob("ui/**/*", recursive=True)
+    # extra_files = glob.glob("ui/**/*", recursive=True)
 
     deployment_template = {
         # All actual computations are carried out via remote apis, so
@@ -381,7 +381,7 @@ class RAG(Photon):
         """
         # First, log in to the workspace.
         leptonai.api.workspace.login()
-        self.backend = os.environ["BACKEND"].upper()
+        self.backend = "GOOGLE"
         if self.backend == "LEPTON":
             self.leptonsearch_client = Client(
                 "https://search-api.lepton.run/",
@@ -397,11 +397,11 @@ class RAG(Photon):
                 self.search_api_key,
             )
         elif self.backend == "GOOGLE":
-            self.search_api_key = os.environ["GOOGLE_SEARCH_API_KEY"]
+            self.search_api_key = "AIzaSyCtaMdvWhT51zFlt-Hf2G2LdvPHEqEzFwU"
             self.search_function = lambda query: search_with_google(
                 query,
                 self.search_api_key,
-                os.environ["GOOGLE_SEARCH_CX"],
+                "f4739259353b047d0",
             )
         elif self.backend == "SERPER":
             self.search_api_key = os.environ["SERPER_SEARCH_API_KEY"]
@@ -627,16 +627,16 @@ class RAG(Photon):
             media_type="text/html",
         )
 
-    @Photon.handler(mount=True)
-    def ui(self):
-        return StaticFiles(directory="ui")
+    # @Photon.handler(mount=True)
+    # def ui(self):
+    #     return StaticFiles(directory="ui")
 
-    @Photon.handler(method="GET", path="/")
-    def index(self) -> RedirectResponse:
-        """
-        Redirects "/" to the ui page.
-        """
-        return RedirectResponse(url="/ui/index.html")
+    # @Photon.handler(method="GET", path="/")
+    # def index(self) -> RedirectResponse:
+    #     """
+    #     Redirects "/" to the ui page.
+    #     """
+    #     return RedirectResponse(url="/ui/index.html")
 
 
 if __name__ == "__main__":

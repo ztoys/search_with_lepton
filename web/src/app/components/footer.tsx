@@ -9,7 +9,7 @@ export const Footer: FC = () => {
         correctness.
       </div>
       <div className="text-zinc-400">
-        LLM, Vector DB, and other components powered by the Lepton AI platform.
+        LLM, Vector DB, and other components powered by the AI platform.
       </div>
       <div className="flex gap-2 justify-center">
         <div>
